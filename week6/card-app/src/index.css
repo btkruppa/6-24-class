@@ -73,4 +73,10 @@ Cards
 #card-table-container {
   width: 100%;
   padding: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+#card-game-dropdown {
+  align-self: flex-end;
 }
