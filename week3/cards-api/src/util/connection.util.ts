@@ -10,4 +10,4 @@ const connectionConfiguration = {
 };
 
 // console.log(connectionConfiguration);
-export const connectionPool = new Pool(connectionConfiguration)
+export const connectionPool = new Pool(connectionConfiguration);

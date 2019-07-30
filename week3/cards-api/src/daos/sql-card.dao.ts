@@ -1,5 +1,5 @@
 import { PoolClient } from 'pg';
-import { connectionPool } from '../util/connection.util'
+import { connectionPool } from '../util/connection.util';
 import { cardConverter } from '../util/card.converter';
 import Card from '../models/card';
 
