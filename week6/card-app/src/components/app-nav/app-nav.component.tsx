@@ -32,7 +32,7 @@ export class NavComponent extends React.Component {
               <Link to="/clicker" className="unset-anchor nav-link">Clicker</Link>
             </li>
             <li className="nav-item active">
-              <Link to="/spaceships" className="unset-anchor nav-link">Spaceships</Link>
+              <Link to="/cards" className="unset-anchor nav-link">Cards</Link>
             </li>
             <li className="nav-item active dropdown">
               <div className="nav-link dropdown-toggle pointer" id="examples-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</div>
