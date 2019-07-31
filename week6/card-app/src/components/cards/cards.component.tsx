@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import Card from '../../models/card';
 import { Game } from '../../models/game';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { environment } from '../../environment';
 
 interface IState {
     cards: Card[],
@@ -31,7 +32,7 @@ export default class Cards extends Component<{}, IState> {
     }
 
     getCards = async () => {
-        const resp = await fetch('http://localhost:8012/cards', {
+        const resp = await fetch(environment.context +'/cards', {
             credentials: 'include'
         });
         const cardsFromServer = await resp.json();
@@ -46,7 +47,7 @@ export default class Cards extends Component<{}, IState> {
     }
 
     getCardsByGameId = async (game: Game) => {
-        const resp = await fetch('http://localhost:8012/cards/game/' + game.id, {
+        const resp = await fetch(environment.context +'/cards/game/' + game.id, {
             credentials: 'include'
         });
         const cardsFromServer = await resp.json();
@@ -61,7 +62,7 @@ export default class Cards extends Component<{}, IState> {
     }
 
     getGames = async () => {
-        const resp = await fetch('http://localhost:8012/games', {
+        const resp = await fetch(environment.context + '/games', {
             credentials: 'include'
         });
         const games = await resp.json();
