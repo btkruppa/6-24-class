@@ -12,7 +12,7 @@ import { TicTacToe } from './components/tic-tac/tic-tac.component';
 import { Norris } from './components/norris/norris.component';
 import Pokemon from './components/pokemon/pokemon.component';
 import { Nested } from './components/nested/nested.component';
-import { SignIn } from './components/sign-in/sign-in.component';
+import SignIn from './components/sign-in/sign-in.component';
 import Cards from './components/cards/cards.component';
 import { Provider } from 'react-redux';
 import { store } from './store';

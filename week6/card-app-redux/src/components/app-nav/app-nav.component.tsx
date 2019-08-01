@@ -3,9 +3,11 @@ import { Link } from 'react-router-dom';
 import RevLogo from '../../assets/rev-logo.png';
 import { IState } from '../../reducers';
 import { connect } from 'react-redux';
+import User from '../../models/user';
 
 interface INavProps {
-  clicks: number
+  clicks: number,
+  user?: User
 }
 
 export class NavComponent extends React.Component<INavProps> {
@@ -54,6 +56,9 @@ export class NavComponent extends React.Component<INavProps> {
             <li className="nav-item active">
               <Link to="/nested" className="unset-anchor nav-link">Nested</Link>
             </li>
+            <li className="nav-item active">
+              {this.props.user && this.props.user.username}
+            </li>
           </ul>
         </div>
       </nav>
@@ -61,8 +66,9 @@ export class NavComponent extends React.Component<INavProps> {
   }
 }
 
-const mapStateToProps = (state:IState) => ({
-  clicks: state.clicker.clicks
+const mapStateToProps = (state: IState) => ({
+  clicks: state.clicker.clicks,
+  user: state.auth.currentUser
 })
 
 export default connect(mapStateToProps)(NavComponent);

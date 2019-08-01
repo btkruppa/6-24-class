@@ -10,7 +10,8 @@ interface IComponentState {
 
 interface IProps {
     pokemon: IPokemonState,
-    updatePokemon: (pokemon: any) => any
+    clicks: number,
+    updatePokemon: (id: number) => any
 }
 
 export class Pokemon extends React.Component<IProps, IComponentState> {
@@ -29,9 +30,7 @@ export class Pokemon extends React.Component<IProps, IComponentState> {
     }
 
     findNewPokemon = async () => {
-        const resp = await fetch('https://pokeapi.co/api/v2/pokemon/' + this.state.pokemonId);
-        const pokemon = await resp.json();
-        this.props.updatePokemon(pokemon);
+        this.props.updatePokemon(this.state.pokemonId);
     }
 
     getSprites = () => {
@@ -56,7 +55,11 @@ export class Pokemon extends React.Component<IProps, IComponentState> {
                     value={this.state.pokemonId}
                     onChange={this.updatePokemonId}></input>
 
-                <Button color="warning" onClick={this.findNewPokemon}>Find</Button>
+                <Button color="warning" 
+                    onClick={this.findNewPokemon}
+                    disabled={this.props.clicks < 15}>
+                    Find
+                </Button>
 
                 <br/>
                 <h3>Name: {this.props.pokemon && this.props.pokemon.pokemonName}</h3>
@@ -68,7 +71,8 @@ export class Pokemon extends React.Component<IProps, IComponentState> {
 }
 
 const mapStateToProps = (state: IState) => ({
-    pokemon: state.pokemon
+    pokemon: state.pokemon,
+    clicks: state.clicker.clicks
 })
 
 const mapDispatchToProps = {

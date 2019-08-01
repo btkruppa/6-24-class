@@ -1,8 +1,15 @@
 import React from 'react';
-import { environment } from '../../environment';
 import { RouteComponentProps } from 'react-router';
+import { connect } from 'react-redux';
+import { login } from '../../actions/auth.actions';
+import { IState, IAuthState } from '../../reducers';
 
-interface IState {
+interface IProps extends RouteComponentProps{
+    auth: IAuthState,
+    login: (credentials: any, history: any) => any
+}
+
+interface IComponentState {
     credentials: {
         username: string,
         password: string
@@ -10,7 +17,7 @@ interface IState {
     errorMessage?: string
 }
 
-export class SignIn extends React.Component<RouteComponentProps, IState> {
+export class SignIn extends React.Component<IProps, IComponentState> {
 
     constructor(props: any) {
         super(props);
@@ -34,30 +41,11 @@ export class SignIn extends React.Component<RouteComponentProps, IState> {
 
     submit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        try {
-            const resp = await fetch(environment.context + '/login', {
-                method: 'POST',
-                credentials: 'include',
-                body: JSON.stringify(this.state.credentials),
-                headers: {
-                    'content-type': 'application/json'
-                }
-            });
-            const user = await resp.json();
-            console.log(user);
-    
-            localStorage.setItem('user', JSON.stringify(user));
-            this.props.history.push('/cards'); // navigate pages
-        } catch (err) {
-            console.log(err);
-            console.log('invalid credentials');
-            this.setState({
-                errorMessage: 'Invalid Credentials'
-            });
-        }
+        this.props.login(this.state.credentials, this.props.history);
     }
 
     render() {
+        const errorMessage = this.props.auth.errorMessage;
         return (
             <form className="form-signin" onSubmit={this.submit}>
                 <h1 className="h3 mb-3 font-weight-normal">Please sign in</h1>
@@ -75,10 +63,21 @@ export class SignIn extends React.Component<RouteComponentProps, IState> {
                     placeholder="Password"
                     onChange={this.handleChange}
                     value={this.state.credentials.password} required />
-                {this.state.errorMessage && <p id="error-message">{this.state.errorMessage}</p>}
+                {errorMessage && <p id="error-message">{errorMessage}</p>}
                 <button className="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 <p className="mt-5 mb-3 text-muted">&copy; 2017-2019</p>
             </form>
         );
     }
 }
+
+
+const mapStateToProps = (state: IState) => ({
+    auth: state.auth
+})
+
+const mapDispatchToProps = {
+    login
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
