@@ -11,9 +11,9 @@ export const cardsRouter = express.Router();
 cardsRouter.get('', [
     authMiddleware('admin'),
     async (req, res) => {
-    const cards = await cardDao.findAll();
-    res.json(cards);
-}]);
+        const cards = await cardDao.findAll();
+        res.json(cards);
+    }]);
 
 /**
  * /cards
@@ -75,8 +75,10 @@ cardsRouter.post('', async (req, res) => {
  * /cards
  * partially update card resource
  */
-cardsRouter.patch('', (req, res) => {
-    res.send(`updating card: ${JSON.stringify(req.body)}`);
+cardsRouter.patch('', async (req, res) => {
+    const updatedCard = await cardDao.update(req.body);
+    console.log(updatedCard);
+    res.json(updatedCard);
 });
 
 /**

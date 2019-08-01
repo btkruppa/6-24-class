@@ -103,7 +103,7 @@ export async function save(user: User) {
     return undefined;
 }
 
-export async function update(user: User) {
+export async function update(user: Partial<User>) {
     const oldUser = await findById(user.id);
     if (!oldUser) {
         return undefined;

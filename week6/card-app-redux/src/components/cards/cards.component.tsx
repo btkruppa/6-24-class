@@ -1,10 +1,17 @@
 import React, { Component } from 'react'
 import Card from '../../models/card';
 import { Game } from '../../models/game';
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
 import { environment } from '../../environment';
+import User from '../../models/user';
+import { IState } from '../../reducers';
+import { connect } from 'react-redux';
 
-interface IState {
+interface IProps {
+    currentUser?: User
+}
+
+interface IComponentState {
     cards: Card[],
     games: Game[],
     gameDropdown: {
@@ -13,7 +20,7 @@ interface IState {
     }
 }
 
-export default class Cards extends Component<{}, IState> {
+export class Cards extends Component<IProps, IComponentState> {
     constructor(props: any) {
         super(props);
         this.state = {
@@ -32,7 +39,7 @@ export default class Cards extends Component<{}, IState> {
     }
 
     getCards = async () => {
-        const resp = await fetch(environment.context +'/cards', {
+        const resp = await fetch(environment.context + '/cards', {
             credentials: 'include'
         });
         const cardsFromServer = await resp.json();
@@ -47,7 +54,7 @@ export default class Cards extends Component<{}, IState> {
     }
 
     getCardsByGameId = async (game: Game) => {
-        const resp = await fetch(environment.context +'/cards/game/' + game.id, {
+        const resp = await fetch(environment.context + '/cards/game/' + game.id, {
             credentials: 'include'
         });
         const cardsFromServer = await resp.json();
@@ -80,13 +87,80 @@ export default class Cards extends Component<{}, IState> {
         });
     }
 
+    sellCard = async(cardId: number) => {
+        const result = await fetch(environment.context + '/cards', {
+            credentials: 'include',
+            method: 'PATCH',
+            body: JSON.stringify({
+                id: cardId,
+                owner: null
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        const updatedCard = await result.json();
+        this.setState({
+            ...this.state,
+            cards: this.state.cards.map(card => {
+                if(card.id === updatedCard.id) {
+                    return updatedCard;
+                } else {
+                    return card;
+                }
+            })
+        })
+    }
+
+    buyCard = async(cardId: number) => {
+        const result = await fetch(environment.context + '/cards', {
+            credentials: 'include',
+            method: 'PATCH',
+            body: JSON.stringify({
+                id: cardId,
+                owner: {
+                    id: this.props.currentUser && this.props.currentUser.id
+                }
+            }),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+        const updatedCard = await result.json();
+        this.setState({
+            ...this.state,
+            cards: this.state.cards.map(card => {
+                if(card.id === updatedCard.id) {
+                    return updatedCard;
+                } else {
+                    return card;
+                }
+            })
+        })
+    }
+
+    getPurchaseOption = (card: Card) => {
+        if(this.props.currentUser) {
+            if (!card.owner) {
+                return <td>
+                    <Button color="success" onClick={() => this.buyCard(card.id)}>Buy</Button>
+                </td>
+            }
+            else if (card.owner.id === this.props.currentUser.id) {
+                return <td>
+                    <Button color="danger" onClick={() => this.sellCard(card.id)}>Sell</Button>
+                </td>
+            }
+        }
+    }
+
     render() {
         const cards = this.state.cards;
         return (
             <div id="card-table-container">
                 <ButtonDropdown id="card-game-dropdown"
-                        isOpen={this.state.gameDropdown.isOpen} 
-                        toggle={this.toggleGameDropdown}>
+                    isOpen={this.state.gameDropdown.isOpen}
+                    toggle={this.toggleGameDropdown}>
 
                     <DropdownToggle caret>
                         {this.state.gameDropdown.selection}
@@ -96,10 +170,10 @@ export default class Cards extends Component<{}, IState> {
                         <DropdownItem divider />
                         {
                             this.state.games.map(game => (
-                                <DropdownItem key={'game-dropdown-' + game.id} 
-                                            onClick={() => this.getCardsByGameId(game)}>
-                                 {game.name}
-                                 </DropdownItem>
+                                <DropdownItem key={'game-dropdown-' + game.id}
+                                    onClick={() => this.getCardsByGameId(game)}>
+                                    {game.name}
+                                </DropdownItem>
                             ))
                         }
                     </DropdownMenu>
@@ -123,6 +197,7 @@ export default class Cards extends Component<{}, IState> {
                                     <td>{card.quality.label}</td>
                                     <td>{card.value}</td>
                                     <td>{card.owner && card.owner.username}</td>
+                                    {this.getPurchaseOption(card)}
                                 </tr>)
                         }
                     </tbody>
@@ -131,3 +206,9 @@ export default class Cards extends Component<{}, IState> {
         )
     }
 }
+
+const mapStateToProps = (state: IState) => ({
+    currentUser: state.auth.currentUser
+})
+
+export default connect(mapStateToProps)(Cards);
