@@ -1,5 +1,5 @@
 import React from 'react';
-import './App.css';
+import './App.scss';
 import { FirstComponent } from './components/first/first.component';
 import Second from './components/second/second.component';
 import Third from './components/third/third.component';

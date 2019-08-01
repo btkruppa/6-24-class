@@ -1,3 +1,6 @@
+$appWhite: #ffffff;
+
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -36,11 +39,11 @@ code {
 }
 
 .bg-light {
-  background-color: #ffffff !important;
+  background-color: $appWhite !important;
 }
 
 nav {
-  border-bottom: 1px solid #ffffff !important;
+  border-bottom: 1px solid $appWhite !important;
   margin-bottom: 20px;
   -webkit-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
   -moz-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
@@ -79,4 +82,37 @@ Cards
 
 #card-game-dropdown {
   align-self: flex-end;
+}
+
+/********************************************************
+Sign In
+*******************************************************/
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
 }

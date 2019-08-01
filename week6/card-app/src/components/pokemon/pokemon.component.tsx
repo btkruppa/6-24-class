@@ -38,7 +38,7 @@ export class Pokemon extends React.Component<{}, IState> {
         const sprites = this.state.pokemon.sprites
         for(let sprite in sprites) {
             if(sprites[sprite]) {
-                spritesTSX.push(<img key={'sprite-url' + sprites[sprite]} src={sprites[sprite]} />)
+                spritesTSX.push(<img key={'sprite-url' + sprites[sprite]} src={sprites[sprite]} alt="sprite" />)
             }
         }
         return spritesTSX;
@@ -47,8 +47,8 @@ export class Pokemon extends React.Component<{}, IState> {
     render() {
         return (
             <div>
-                <input name="pokemonId" 
-                    type="number" 
+                <input name="pokemonId"
+                    type="number"
                     value={this.state.pokemonId}
                     onChange={this.updatePokemonId}></input>
 

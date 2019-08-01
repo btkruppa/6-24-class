@@ -1,5 +1,6 @@
 import express from 'express';
 import * as cardDao from '../daos/sql-card.dao';
+import { authMiddleware } from '../middleware/auth.middleware';
 
 export const cardsRouter = express.Router();
 
@@ -7,10 +8,12 @@ export const cardsRouter = express.Router();
  * /cards
  * Find all cards
  */
-cardsRouter.get('', async (req, res) => {
+cardsRouter.get('', [
+    authMiddleware('admin'),
+    async (req, res) => {
     const cards = await cardDao.findAll();
     res.json(cards);
-});
+}]);
 
 /**
  * /cards
