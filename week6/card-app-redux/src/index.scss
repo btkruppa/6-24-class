@@ -1,0 +1,118 @@
+$appWhite: #ffffff;
+
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+    monospace;
+}
+
+/*****************************
+  NAV
+*****************************/
+.rev-logo {
+  width: auto;
+  height: 2em;
+  margin-right: 2em;
+}
+
+.margin-nav {
+  margin-right: 2em
+}
+
+
+.navbar-light .navbar-nav .nav-link:focus, .navbar-light .navbar-nav .nav-link:hover {
+  color: rgba(0,0,0,.7);
+}
+
+.navbar-expand-md .navbar-nav .nav-link {
+  padding-right: .75rem !important;
+  padding-left: .75rem !important;
+}
+
+.bg-light {
+  background-color: $appWhite !important;
+}
+
+nav {
+  border-bottom: 1px solid $appWhite !important;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
+  -moz-box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
+  box-shadow: 1px -12px 28px -1px rgba(0, 0, 0, 0.87);
+}
+
+#examples-dropdown {
+  cursor: pointer;
+}
+
+
+/*******************************************************
+Clicker
+*******************************************************/
+.green {
+  color: green;
+}
+
+.yellow {
+  color: yellow;
+}
+
+.red {
+  color: red;
+}
+
+/********************************************************
+Cards
+********************************************************/
+#card-table-container {
+  width: 100%;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+}
+
+#card-game-dropdown {
+  align-self: flex-end;
+}
+
+/********************************************************
+Sign In
+*******************************************************/
+.form-signin {
+  width: 100%;
+  max-width: 330px;
+  padding: 15px;
+  margin: auto;
+}
+.form-signin .checkbox {
+  font-weight: 400;
+}
+.form-signin .form-control {
+  position: relative;
+  box-sizing: border-box;
+  height: auto;
+  padding: 10px;
+  font-size: 16px;
+}
+.form-signin .form-control:focus {
+  z-index: 2;
+}
+.form-signin input[type="email"] {
+  margin-bottom: -1px;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+}
+.form-signin input[type="password"] {
+  margin-bottom: 10px;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0;
+}
