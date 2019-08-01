@@ -1,8 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import RevLogo from '../../assets/rev-logo.png';
+import { IState } from '../../reducers';
+import { connect } from 'react-redux';
 
-export class NavComponent extends React.Component {
+interface INavProps {
+  clicks: number
+}
+
+export class NavComponent extends React.Component<INavProps> {
   render() {
     return (
       <nav className="navbar navbar-toggleable-md navbar-expand-lg navbar-light bg-light display-front nav-pad">
@@ -10,6 +16,7 @@ export class NavComponent extends React.Component {
           <Link to="/home" className="unset-anchor">
             <img className="img-adjust-position rev-logo" src={RevLogo} alt="revature" />
           </Link>
+          {this.props.clicks}
         </div>
         <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample04" aria-controls="navbarsExample04" aria-expanded="false" aria-label="Toggle navigation">
           <span className="navbar-toggler-icon"></span>
@@ -53,3 +60,11 @@ export class NavComponent extends React.Component {
     );
   }
 }
+
+const mapStateToProps = (state:IState) => ({
+  clicks: state.clicker.clicks
+})
+
+export default connect(mapStateToProps)(NavComponent);
+
+
