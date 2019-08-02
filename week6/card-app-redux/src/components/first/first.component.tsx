@@ -4,7 +4,7 @@ export class FirstComponent extends React.Component {
 
     render() {
         return (
-            <h1>First Component</h1>
+            <h1>Updated First Component</h1>
         );
     }
 }
