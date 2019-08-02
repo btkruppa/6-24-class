@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import Card from '../../models/card';
 import { Game } from '../../models/game';
 import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from 'reactstrap';
-import { environment } from '../../environment';
 import User from '../../models/user';
 import { IState } from '../../reducers';
 import { connect } from 'react-redux';
+import { cardClient } from '../../axios/card.client';
 
 interface IProps {
     currentUser?: User
@@ -39,10 +39,8 @@ export class Cards extends Component<IProps, IComponentState> {
     }
 
     getCards = async () => {
-        const resp = await fetch(environment.context + '/cards', {
-            credentials: 'include'
-        });
-        const cardsFromServer = await resp.json();
+        const resp = await cardClient.get<Card[]>('/cards');
+        const cardsFromServer = resp.data;
         this.setState({
             cards: cardsFromServer,
             gameDropdown: {
@@ -54,10 +52,8 @@ export class Cards extends Component<IProps, IComponentState> {
     }
 
     getCardsByGameId = async (game: Game) => {
-        const resp = await fetch(environment.context + '/cards/game/' + game.id, {
-            credentials: 'include'
-        });
-        const cardsFromServer = await resp.json();
+        const resp = await cardClient.get<Card[]>(`/cards/game/${game.id}`);
+        const cardsFromServer = resp.data;
         this.setState({
             cards: cardsFromServer,
             gameDropdown: {
@@ -69,10 +65,8 @@ export class Cards extends Component<IProps, IComponentState> {
     }
 
     getGames = async () => {
-        const resp = await fetch(environment.context + '/games', {
-            credentials: 'include'
-        });
-        const games = await resp.json();
+        const resp = await cardClient.get<Game[]>('/games');
+        const games = resp.data;
         this.setState({
             games
         });
@@ -88,18 +82,12 @@ export class Cards extends Component<IProps, IComponentState> {
     }
 
     sellCard = async(cardId: number) => {
-        const result = await fetch(environment.context + '/cards', {
-            credentials: 'include',
-            method: 'PATCH',
-            body: JSON.stringify({
-                id: cardId,
-                owner: null
-            }),
-            headers: {
-                'content-type': 'application/json'
-            }
-        })
-        const updatedCard = await result.json();
+        const body = {
+            id: cardId,
+            owner: null
+        };
+        const result = await cardClient.patch('/cards', body);
+        const updatedCard = result.data;
         this.setState({
             ...this.state,
             cards: this.state.cards.map(card => {
@@ -113,20 +101,14 @@ export class Cards extends Component<IProps, IComponentState> {
     }
 
     buyCard = async(cardId: number) => {
-        const result = await fetch(environment.context + '/cards', {
-            credentials: 'include',
-            method: 'PATCH',
-            body: JSON.stringify({
-                id: cardId,
-                owner: {
-                    id: this.props.currentUser && this.props.currentUser.id
-                }
-            }),
-            headers: {
-                'content-type': 'application/json'
+        const body = {
+            id: cardId,
+            owner: {
+                id: this.props.currentUser && this.props.currentUser.id
             }
-        })
-        const updatedCard = await result.json();
+        };
+        const result = await cardClient.patch('/cards', body);
+        const updatedCard = result.data;
         this.setState({
             ...this.state,
             cards: this.state.cards.map(card => {

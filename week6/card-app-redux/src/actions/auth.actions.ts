@@ -1,4 +1,4 @@
-import { environment } from "../environment";
+import { cardClient } from "../axios/card.client";
 
 export const authTypes = {
     UPDATE_CURRENT_USER: '[AUTH] UPDATE CURRENT USER',
@@ -7,15 +7,8 @@ export const authTypes = {
 
 export const login = (credentials: any, history: any) => async (dispatch: any) => {
     try {
-        const resp = await fetch(environment.context + '/login', {
-            method: 'POST',
-            credentials: 'include',
-            body: JSON.stringify(credentials),
-            headers: {
-                'content-type': 'application/json'
-            }
-        });
-        const user = await resp.json();
+        const resp = await cardClient.post('/login', credentials);
+        const user = resp.data;
         console.log(user);
 
         dispatch({

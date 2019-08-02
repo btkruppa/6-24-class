@@ -1,14 +1,14 @@
 import React from 'react'
 import { Button } from 'reactstrap';
 
-interface IProps {
+export  interface IClickerIncrementerProps {
     clicks: number,
     renderAt: number,
     amount: number,
     increment: (amount: number) => void
 }
 
-export default function ClickerIncrementer(props: IProps) {
+export default function ClickerIncrementer(props: IClickerIncrementerProps) {
     const {renderAt, clicks, amount, increment } = props;
     if(clicks < renderAt) {
         return null;

@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import { updateClicks } from '../../actions/clicker.actions';
 
 
-interface IClickerProps {
+export interface IClickerProps {
     clicker: IClickerState,
     updateClicks: (amount: number) => any
 }
