@@ -1,0 +1,12 @@
+2019-08-06 11:48:39 TRACE LoggerDriver:9 - trace log is very granular
+2019-08-06 11:48:39 DEBUG LoggerDriver:10 - debug log is not as granular as trace but not as system wide as info
+2019-08-06 11:48:39 INFO  LoggerDriver:11 - info logs are not specific to code they are based on system events
+2019-08-06 11:48:39 WARN  LoggerDriver:12 - something odd happened but shouldn't be too bad
+2019-08-06 11:48:39 ERROR LoggerDriver:13 - User experience is suffering to some degree and needs to be fixed
+2019-08-06 11:48:39 FATAL LoggerDriver:14 - If the app is still running it probably shouldn't be and this needs immediate attention
+2019-08-06 11:49:29 TRACE LoggerDriver:9 - trace log is very granular
+2019-08-06 11:49:29 DEBUG LoggerDriver:10 - debug log is not as granular as trace but not as system wide as info
+2019-08-06 11:49:29 INFO  LoggerDriver:11 - info logs are not specific to code they are based on system events
+2019-08-06 11:49:29 WARN  LoggerDriver:12 - something odd happened but shouldn't be too bad
+2019-08-06 11:49:29 ERROR LoggerDriver:13 - User experience is suffering to some degree and needs to be fixed
+2019-08-06 11:49:29 FATAL LoggerDriver:14 - If the app is still running it probably shouldn't be and this needs immediate attention
