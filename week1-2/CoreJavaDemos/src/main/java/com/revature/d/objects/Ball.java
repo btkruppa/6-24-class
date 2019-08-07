@@ -1,6 +1,6 @@
 package com.revature.d.objects;
 
-public class Ball {
+public class Ball implements Comparable<Ball>{
 	private String color;
 	private double weight;
 	private String material;
@@ -98,6 +98,18 @@ public class Ball {
 	@Override
 	public String toString() {
 		return "Ball [color=" + color + ", weight=" + weight + ", material=" + material + ", radius=" + radius + "]";
+	}
+
+	@Override
+	public int compareTo(Ball o) {
+		double compared = o.getRadius() - this.getRadius();
+		if(compared == 0) {
+			double weightCompared = o.getWeight() - this.getWeight();
+			return (int) Math.copySign(1, weightCompared);
+		} else {
+			int radiusCompare = (int) Math.copySign(1, compared);
+			return radiusCompare;
+		}
 	}
 
 }
