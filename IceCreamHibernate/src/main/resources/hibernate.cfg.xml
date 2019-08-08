@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-configuration SYSTEM "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+	<session-factory>
+		
+		<property name="hibernate.dialect">org.hibernate.dialect.PostgreSQLDialect</property>
+		<property name="hibernate.connection.driver_class">org.postgresql.Driver</property>
+		<property name="show_sql">true</property>
+		<property name="hibernate.connection.pool_size">5</property>
+		
+		<!--  <property name="hibernate.hbm2ddl.auto">create</property> -->
+		<!-- Annotated Class Mappings -->
+		<mapping class="com.revature.models.IceCream"/>
+		<mapping class="com.revature.models.User"/>
+		<mapping class="com.revature.models.Brand"/>
+		<mapping class="com.revature.models.Flavor"/>
+		<mapping class="com.revature.models.Topping"/>
+		
+	</session-factory>
+</hibernate-configuration>
