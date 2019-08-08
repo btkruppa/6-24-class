@@ -49,9 +49,9 @@ public class HibernateDriver {
 		
 		
 		// find icecream by flavor name
-//		List<IceCream> iceCream = iceCreamDao.findByFlavorName("vanilla");
-//		iceCream.forEach(ele -> System.out.println(ele));
+		List<IceCream> iceCream = iceCreamDao.findByFlavorName("vanilla");
+		iceCream.forEach(ele -> System.out.println(ele));
 		
-		iceCreamDao.findByFlavorNameCriteria("vanilla");
+//		iceCreamDao.findByFlavorNameCriteria("vanilla");
 	}
 }

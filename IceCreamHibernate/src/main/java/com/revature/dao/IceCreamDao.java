@@ -83,28 +83,29 @@ public class IceCreamDao {
 	public List<IceCream> findByFlavorName(String flavorName) {
 		Session s = sf.openSession();
 		Transaction t = s.beginTransaction();
-		
-		String queryString = "FROM IceCream as ic JOIN ic.flavors as f WHERE LOWER(f.name) = LOWER(:name)";
-		
+
+		String queryString = "SELECT ic FROM IceCream ic JOIN ic.flavors f WHERE LOWER(f.name) = LOWER(:name)";
+
 		Query q = s.createQuery(queryString);
 		q.setString("name", flavorName);
-		List<Object[]> iceCreamArr =  q.list();
-		List<IceCream> iceCream = iceCreamArr.stream().map(ele -> (IceCream) ele[0]).collect(Collectors.toList());
-		
+		List<IceCream> iceCream = q.list();
+		iceCream.forEach(ic -> {
+			Hibernate.initialize(ic.getFlavors());
+			Hibernate.initialize(ic.getToppings());
+			Hibernate.initialize(ic.getBrand());
+		});
 		t.commit();
 		s.close();
 		return iceCream;
 	}
-	
+
 	public List<IceCream> findByFlavorNameCriteria(String flavorName) {
 		Session s = sf.openSession();
 		Transaction t = s.beginTransaction();
-		
+
 		Criteria c = s.createCriteria(IceCream.class);
 		c.createAlias("flavors", "f");
-		c.add(
-			Restrictions.ilike("f.name", flavorName)
-		);
+		c.add(Restrictions.ilike("f.name", flavorName));
 		List<IceCream> iceCream = c.list();
 		iceCream.forEach(ele -> System.out.println(ele));
 		t.commit();
