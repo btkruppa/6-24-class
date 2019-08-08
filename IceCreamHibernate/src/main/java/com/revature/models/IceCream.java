@@ -2,6 +2,7 @@ package com.revature.models;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -23,7 +24,8 @@ public class IceCream {
 
 	private String name;
 	
-	@ManyToOne
+	// I don't recommend putting cascing on unless you can explain why
+	@ManyToOne(cascade=CascadeType.ALL)
 	@JoinColumn(name="brand_id")
 	private Brand brand;
 	
