@@ -1,1 +1,1 @@
-This is the repo for the 1906 react class done by Blake.
+This is the repo for the BSN 1906 React class by Blake Kruppa.
