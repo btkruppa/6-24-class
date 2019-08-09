@@ -46,7 +46,8 @@ public class IceCreamDao {
 	public IceCream findById(int id) {
 		Session s = sf.openSession();
 
-		IceCream ic = (IceCream) s.load(IceCream.class, id);
+		IceCream ic = (IceCream) s.get(IceCream.class, id);
+	
 		// Flavors is a lazy intialized field
 		// meaning instead of the data we have a proxy
 		// as long as we are in the session we can access that data freely
@@ -79,6 +80,27 @@ public class IceCreamDao {
 		t.commit();
 		s.close();
 	}
+	
+	
+	public void removeToppingFromIceCream(int iceCreamId, int toppingId) {
+		Session s = sf.openSession();
+		Transaction t = s.beginTransaction();
+
+		// when we retreive the icecream it will be persistent until the
+		// transaction closes, if we modify the object, hibernate will automatically
+		// update the database as well
+		// this is known as Automatic Dirty Checking
+		IceCream ic = (IceCream) s.get(IceCream.class, iceCreamId);
+		Topping topping = (Topping) s.get(Topping.class, toppingId);
+
+		ic.getToppings().remove(topping);
+
+		// if
+//		ic.setName("Updated"); 
+
+		t.commit();
+		s.close();
+	}
 
 	public List<IceCream> findByFlavorName(String flavorName) {
 		Session s = sf.openSession();
@@ -88,6 +110,30 @@ public class IceCreamDao {
 
 		Query q = s.createQuery(queryString);
 		q.setString("name", flavorName);
+		List<IceCream> iceCream = q.list();
+		iceCream.forEach(ic -> {
+			Hibernate.initialize(ic.getFlavors());
+			Hibernate.initialize(ic.getToppings());
+			Hibernate.initialize(ic.getBrand());
+		});
+		t.commit();
+		s.close();
+		return iceCream;
+	}
+	
+	public List<IceCream> findByBrandName(String brandName) {
+		Session s = sf.openSession();
+		Transaction t = s.beginTransaction();
+
+		String queryString = "SELECT ic FROM IceCream ic WHERE " +
+				"LOWER(ic.brand.name) = LOWER(:brand)";
+
+		Query q = s.createQuery(queryString);
+		
+		// we could also used named queries but I'm not the biggest fan
+//		Query q = s.getNamedQuery("findByBrandName");
+		
+		q.setString("brand", brandName);
 		List<IceCream> iceCream = q.list();
 		iceCream.forEach(ic -> {
 			Hibernate.initialize(ic.getFlavors());

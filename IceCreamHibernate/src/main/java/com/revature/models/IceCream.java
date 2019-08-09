@@ -12,10 +12,16 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 
 @Entity
 @Table(name="ice_cream")
+@NamedQueries({
+	@NamedQuery(name = "findByBrandName",
+	query="SELECT ic FROM IceCream ic WHERE LOWER(ic.brand.name) = LOWER(:brand)")
+})
 public class IceCream {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

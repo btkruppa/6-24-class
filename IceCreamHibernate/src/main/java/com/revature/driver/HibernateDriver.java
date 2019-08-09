@@ -43,15 +43,22 @@ public class HibernateDriver {
 //		IceCream ic = iceCreamDao.findById(8);
 //		System.out.println(ic);
 
+//		 remove topping
+//		iceCreamDao.removeToppingFromIceCream(8, 4);
+//		IceCream ic = iceCreamDao.findById(8);
+//		System.out.println(ic);
+
 		// login
 //		User u = ud.findByUsernameAndPassword("btkruppa", "pass");
 //		System.out.println(u);
-		
-		
+
 		// find icecream by flavor name
 		List<IceCream> iceCream = iceCreamDao.findByFlavorName("vanilla");
 		iceCream.forEach(ele -> System.out.println(ele));
-		
+
 //		iceCreamDao.findByFlavorNameCriteria("vanilla");
+
+//		List<IceCream> iceCream = iceCreamDao.findByBrandName("cold stone");
+//		iceCream.forEach(ele -> System.out.println(ele));
 	}
 }

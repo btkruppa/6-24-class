@@ -1,10 +1,13 @@
 package com.revature.models;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Brand {
@@ -15,15 +18,19 @@ public class Brand {
 
 	private String name;
 
+	@OneToMany(mappedBy = "brand")
+	private List<IceCream> iceCream;
+
 	public Brand() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 
-	public Brand(int brandId, String name) {
+	public Brand(int brandId, String name, List<IceCream> iceCream) {
 		super();
 		this.brandId = brandId;
 		this.name = name;
+		this.iceCream = iceCream;
 	}
 
 	public int getBrandId() {
@@ -40,6 +47,14 @@ public class Brand {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public List<IceCream> getIceCream() {
+		return iceCream;
+	}
+
+	public void setIceCream(List<IceCream> iceCream) {
+		this.iceCream = iceCream;
 	}
 
 	@Override
