@@ -1,0 +1,1 @@
+This is the BSN 1906 class by Blake Kruppa.
