@@ -1,0 +1,24 @@
+server:
+  port: 8012
+  
+spring:
+  application:
+    name: icecream-api
+
+  datasource:
+    driverClassName: org.postgresql.Driver
+    initialization-mode: NEVER
+    password: ${DB_PASSWORD}
+    url: jdbc:postgresql://${DB_URL}:5432/${DB_NAME:ice_cream}
+    username: ${DB_USERNAME}
+    
+  jpa:
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    generate-ddl: false
+    hibernate:
+      ddl-auto: none
+    properties:
+      hibernate:
+        default_schema: ${DB_SCHEMA:public}
+    show-sql: false
+    

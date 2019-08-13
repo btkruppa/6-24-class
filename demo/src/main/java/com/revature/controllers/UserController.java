@@ -1,8 +1,8 @@
 package com.revature.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,39 +12,37 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.revature.models.User;
+import com.revature.services.UserService;
 
 @Controller
 @RequestMapping("/users")
 public class UserController {
 
+	@Autowired
+	private UserService us;
+
 	@GetMapping
 	@ResponseBody // tells spring to convert resp to json
 	public List<User> findAll() {
-		System.out.println("finding all users");
-		List<User> users = new ArrayList<>();
-		users.add(new User(1, "blake", "pass", "blake", "kruppa", "234324", "welrjka", "admin"));
-		users.add(new User(2, "matt", "pass", "matt", "a", "32432432", "lwekjrwel", "associate"));
-		return users;
+		return us.findAll();
 	}
 
 	@GetMapping("/{id}")
 	@ResponseBody // tells spring to convert resp to json
 	public User findById(@PathVariable int id) {
-		return new User(id, "matt", "pass", "matt", "a", "32432432", "lwekjrwel", "associate");
+		return us.findById(id);
 	}
 
 	@GetMapping("/username/{username}")
 	@ResponseBody // tells spring to convert resp to json
 	public User findByUsername(@PathVariable String username) {
-		return new User(1, username, "pass", "matt", "a", "32432432", "lwekjrwel", "associate");
+		return us.findByUsername(username);
 	}
 
 	@PostMapping
 	@ResponseBody
 	public User save(@RequestBody User user) {
-		System.out.println(user);
-		user.setUserId(1);
-		return user;
+		return us.save(user);
 	}
 
 }
