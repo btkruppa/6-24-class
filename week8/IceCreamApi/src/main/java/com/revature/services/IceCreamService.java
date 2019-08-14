@@ -5,6 +5,10 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.revature.models.Flavor;
@@ -17,12 +21,14 @@ public class IceCreamService {
 	@Autowired
 	private IceCreamRepo iceCreamRepo;
 
-	public List<IceCream> findAll() {
-		return iceCreamRepo.findAll();
+	public Page<IceCream> findAll(int pageNumber) {
+		Pageable page = PageRequest.of(pageNumber, 5);
+		return iceCreamRepo.findAll(page);
 	}
 
-	public List<IceCream> findByBrandName(String brandName) {
-		return iceCreamRepo.findByBrandName(brandName);
+	public Page<IceCream> findByBrandName(String brandName, int pageNumber) {
+		Pageable page = PageRequest.of(pageNumber, 5);
+		return iceCreamRepo.findByBrandName(brandName, page);
 	}
 
 	public List<IceCream> findByFlavorsName(String flavorName) {

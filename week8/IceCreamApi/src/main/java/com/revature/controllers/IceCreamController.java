@@ -2,7 +2,10 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,10 +14,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.revature.models.Flavor;
 import com.revature.models.IceCream;
+import com.revature.models.User;
 import com.revature.services.IceCreamService;
 
 @RestController
@@ -25,13 +32,14 @@ public class IceCreamController {
 	private IceCreamService iceCreamService;
 
 	@GetMapping
-	public List<IceCream> findAll() {
-		return iceCreamService.findAll();
+	public Page<IceCream> findAll(@RequestParam int page) {
+		System.out.println(page);
+		return iceCreamService.findAll(page);
 	}
 
 	@GetMapping("/brand/name/{brandName}")
-	public List<IceCream> findByBrandName(@PathVariable String brandName) {
-		return iceCreamService.findByBrandName(brandName);
+	public Page<IceCream> findByBrandName(@PathVariable String brandName, @RequestParam int page) {
+		return iceCreamService.findByBrandName(brandName, page);
 	}
 
 	@GetMapping("/flavors/name/{flavorName}")
