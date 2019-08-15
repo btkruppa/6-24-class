@@ -21,4 +21,7 @@ spring:
       hibernate:
         default_schema: ${DB_SCHEMA:public}
     show-sql: false
-    
+   
+logging:
+  level:  
+    com.revature: TRACE
