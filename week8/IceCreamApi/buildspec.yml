@@ -1,0 +1,14 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      java: openjdk8
+    commands:
+      - cd week8/IceCreamApi
+  build:
+    commands:
+      - mvn clean package
+artifacts:
+  files:
+    - '**/*'
+  base-directory: 'week8/IceCreamApi/target'

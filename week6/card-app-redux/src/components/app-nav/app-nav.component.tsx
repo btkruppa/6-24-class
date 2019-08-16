@@ -43,6 +43,9 @@ export class NavComponent extends React.Component<INavProps> {
             <li className="nav-item active">
               <Link to="/cards" className="unset-anchor nav-link">Cards</Link>
             </li>
+            <li className="nav-item active">
+              <Link to="/icecream" className="unset-anchor nav-link">Icecream</Link>
+            </li>
             <li className="nav-item active dropdown">
               <div className="nav-link dropdown-toggle pointer" id="examples-dropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Examples</div>
               <div className="dropdown-menu" aria-labelledby="examples-dropdown">

@@ -2,6 +2,8 @@ package com.revature.controllers;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +43,7 @@ public class UserController {
 
 	@PostMapping
 	@ResponseBody
-	public User save(@RequestBody User user) {
+	public User save(@Valid @RequestBody User user) {
 		return us.save(user);
 	}
 
