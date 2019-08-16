@@ -8,7 +8,7 @@ phases:
       - npm install
   pre_build:
     commands: 
-      - npm run test
+      - npm run test:no-watch
   build:
     commands:
       - npm run build

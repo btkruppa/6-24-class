@@ -3,7 +3,7 @@ const dev = {
 }
 
 const prod = {
-    context: 'http://cards-api.ppdksbfn6d.us-east-2.elasticbeanstalk.com'
+    context: 'http://icecreamapi.kwypm76pyh.us-east-1.elasticbeanstalk.com'
 }
 
 export let environment = dev;
