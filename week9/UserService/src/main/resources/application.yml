@@ -1,0 +1,14 @@
+server:
+  port: 8014
+  
+spring:
+  application:
+    name: user-service
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8013/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
