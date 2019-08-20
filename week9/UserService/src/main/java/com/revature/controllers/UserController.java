@@ -2,8 +2,10 @@ package com.revature.controllers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,5 +27,14 @@ public class UserController {
 	@GetMapping
 	public List<User> findAll() {
 		return users;
+	}
+
+	@GetMapping("email/{emails}")
+	public List<User> findByEmail(@PathVariable List<String> emails) {
+		
+		System.out.println(emails);
+		return users.stream()
+					.filter(user -> emails.contains(user.getEmail()))
+					.collect(Collectors.toList());
 	}
 }

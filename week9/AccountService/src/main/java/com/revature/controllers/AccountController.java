@@ -1,28 +1,30 @@
 package com.revature.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.revature.models.Account;
+import com.revature.services.AccountService;
 
 @RestController
 @RequestMapping("/accounts")
 public class AccountController {
-
-	private List<Account> accounts = new ArrayList<>();
-
-	public AccountController() {
-		accounts.add(new Account(1, null, "Phong@revature.com", "Savings", 1));
-		accounts.add(new Account(2, null, "Phong@revature.com", "Checking", 9001));
-		accounts.add(new Account(3, null, "Larry@revature.com", "Savings", -5));
-	}
+	@Autowired
+	private AccountService accountService;
 
 	@GetMapping
 	public List<Account> findAll() {
-		return accounts;
+		return accountService.findAllFeign();
 	}
+
+	@GetMapping("{id}")
+	public Account findById(@PathVariable int id) {
+		return accountService.findById(id);
+	}
+
 }
