@@ -1,0 +1,25 @@
+server:
+  port: 8011
+  
+spring:
+  application:
+    name: gateway-service
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8013/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
+    
+zuul:
+  routes:
+    users:
+      path: /users/**
+      strip-prefix: false
+      service-id: user-service
+    icecream:
+      path: /icecream/**
+      strip-prefix: false
+      service-id: icecream-api

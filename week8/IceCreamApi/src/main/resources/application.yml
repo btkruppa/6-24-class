@@ -25,3 +25,11 @@ spring:
 logging:
   level:  
     com.revature: TRACE
+    
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8013/eureka
+  instance:
+    lease-expiration-duration-in-seconds: 2
+    lease-renewal-interval-in-seconds: 1
