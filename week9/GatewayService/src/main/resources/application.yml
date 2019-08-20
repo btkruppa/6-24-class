@@ -23,3 +23,13 @@ zuul:
       path: /icecream/**
       strip-prefix: false
       service-id: icecream-api
+    accounts:
+      path: /accounts/**
+      strip-prefix: false
+      service-id: account-service
+      
+management:
+  endpoints:
+    web:
+      exposure:
+        include: routes
