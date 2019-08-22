@@ -2,7 +2,8 @@ package com.revature.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.revature.intercomm.UserClient;
 import com.revature.models.Account;
@@ -43,6 +46,13 @@ public class AccountService {
 
 		List<User> users = userClient.findByEmail(emails.toString());
 		System.out.println(users);
+		
+		if (users == null) {
+			HttpServletResponse res = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes())
+					.getResponse();
+			res.setStatus(206);
+			return accounts;
+		}
 
 		// add users to the appropriate accounts
 		accounts.forEach(acc -> {

@@ -1,5 +1,8 @@
 server:
   port: 8027
+
+info:
+  description: This is the account service
   
 spring:
   application:
@@ -12,3 +15,14 @@ eureka:
   instance:
     lease-expiration-duration-in-seconds: 2
     lease-renewal-interval-in-seconds: 1
+    
+feign:
+  hystrix:
+    enabled: true
+    
+management:
+  endpoints:
+    web:
+      exposure:
+        include:
+        - '*'
